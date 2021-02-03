@@ -63,7 +63,7 @@ public class GameObjectList {
 	
 	public String serialize() {
 		String aux= "";
-		for(GameObject o: gameObjects) aux = aux + o.serialize();
+		for(GameObject o: gameObjects) aux += o.serialize();
 		return aux;
 	}
 	
