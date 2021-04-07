@@ -1,0 +1,53 @@
+	
+1.	-i resources/examples/ex1.2body.json -eo resources/output/out.1.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+2.	-i resources/examples/ex1.2body.json -eo resources/output/out.2.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+3.	-i resources/examples/ex2.3body.json -eo resources/output/out.3.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+4.	-i resources/examples/ex2.3body.json -eo resources/output/out.4.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+5.	-i resources/examples/ex3.4body.json -eo resources/output/out.5.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		//FALLO solo pasa con eps >= 0.66
+
+6.	-i resources/examples/ex3.4body.json -eo resources/output/out.6.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+7.	-i resources/examples/ex4.4body.json -eo resources/output/out.7.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		//FALLO solo pasa con eps >= 0.35
+
+8.	-i resources/examples/ex4.4body.json -eo resources/output/out.8.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1s. 	-i resources/examples/ex1.2body.json -eo resources/output/out.1s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+2s.	-i resources/examples/ex1.2body.json -eo resources/output/out.2s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+3s.	-i resources/examples/ex2.3body.json -eo resources/output/out.3s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+4s.	-i resources/examples/ex2.3body.json -eo resources/output/out.4s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+5s.	-i resources/examples/ex3.4body.json -eo resources/output/out.5s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+6s.	-i resources/examples/ex3.4body.json -eo resources/output/out.6s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+7s.	-i resources/examples/ex4.4body.json -eo resources/output/out.7s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+
+8s.	-i resources/examples/ex4.4body.json -eo resources/output/out.8s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+-i resources/examples/ex1.2body.json -eo resources/output/out.1.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex1.2body.json -eo resources/output/out.2.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex2.3body.json -eo resources/output/out.3.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex2.3body.json -eo resources/output/out.4.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex3.4body.json -eo resources/output/out.5.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		
+-i resources/examples/ex3.4body.json -eo resources/output/out.6.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex4.4body.json -eo resources/output/out.7.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		
+-i resources/examples/ex4.4body.json -eo resources/output/out.8.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex1.2body.json -eo resources/output/out.1s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex1.2body.json -eo resources/output/out.2s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex2.3body.json -eo resources/output/out.3s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex2.3body.json -eo resources/output/out.4s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex3.4body.json -eo resources/output/out.5s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex3.4body.json -eo resources/output/out.6s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
+-i resources/examples/ex4.4body.json -eo resources/output/out.7s.json -s 10000 -fl nlug -cmp epseq:{eps:0.1}
+-i resources/examples/ex4.4body.json -eo resources/output/out.8s.json -s 10000 -fl mtfp -cmp epseq:{eps:0.1}
