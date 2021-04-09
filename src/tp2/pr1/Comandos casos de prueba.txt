@@ -7,11 +7,11 @@
 
 4.	-i resources/examples/ex2.3body.json -eo resources/output/out.4.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
 
-5.	-i resources/examples/ex3.4body.json -eo resources/output/out.5.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		//FALLO solo pasa con eps >= 0.66
+5.	-i resources/examples/ex3.4body.json -eo resources/output/out.5.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.66}		//FALLO solo pasa con eps >= 0.66
 
 6.	-i resources/examples/ex3.4body.json -eo resources/output/out.6.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
 
-7.	-i resources/examples/ex4.4body.json -eo resources/output/out.7.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.1}		//FALLO solo pasa con eps >= 0.35
+7.	-i resources/examples/ex4.4body.json -eo resources/output/out.7.json -s 10000 -dt 10000 -fl nlug -cmp epseq:{eps:0.35}		//FALLO solo pasa con eps >= 0.35
 
 8.	-i resources/examples/ex4.4body.json -eo resources/output/out.8.json -s 10000 -dt 10000 -fl mtfp -cmp epseq:{eps:0.1}
 

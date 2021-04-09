@@ -24,8 +24,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 						bs2._v = aux;
 					}
 					else {
-						double f_mag = force(bs1, bs2).magnitude();
-						bs2.addForce((bs2.getPosition().minus(bs1.getPosition())).direction().scale(-f_mag));
+						bs2.addForce((bs2.getPosition().minus(bs1.getPosition())).direction().scale(-force(bs1, bs2).magnitude()));
 					}
 				}
 			}
