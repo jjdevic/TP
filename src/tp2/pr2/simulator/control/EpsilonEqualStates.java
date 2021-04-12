@@ -35,6 +35,5 @@ public class EpsilonEqualStates implements StateComparator {
 		}
 		return true;
 	}
-	
 
 }

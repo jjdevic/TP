@@ -20,10 +20,8 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		c = new Vector2D(0.0, 0.0);	
 		if(info.has("c")) {
 			c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
-		}		
-		Double g = info.has("g") ? info.getDouble("g") : 9.81;
-		
-		return new MovingTowardsFixedPoint(c, g);
+		}
+		return new MovingTowardsFixedPoint(c, info.has("g") ? info.getDouble("g") : 9.81);
 	}
 	
 	@Override
