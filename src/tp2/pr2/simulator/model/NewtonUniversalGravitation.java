@@ -20,8 +20,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 			for(Body bs2 : bodyList) {
 				if(!bs1.getId().equals(bs2.getId())) {
 					if(bs1.getMass() == 0.0) {
-						Vector2D aux = new Vector2D(0, 0);
-						bs2._v = aux;
+						bs2._v =  new Vector2D(0, 0);
 					}
 					else {
 						bs2.addForce((bs2.getPosition().minus(bs1.getPosition())).direction().scale(-force(bs1, bs2).magnitude()));

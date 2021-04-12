@@ -25,7 +25,6 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 		data.put("G", "");
 		
 		return data;
-		
 	}
 
 }
