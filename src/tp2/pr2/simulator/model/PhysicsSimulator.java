@@ -22,6 +22,12 @@ public class PhysicsSimulator {
 		if(fLaws == null || dTime < 0) throw new IllegalArgumentException();
 	}
 	
+	public void reset() {
+		bs.clear();
+		dTime = 0.0;
+		aTime = 0.0;
+	}
+	
 	public void advance() {
 		for(Body b: bs) b.resetForce();		
 		fLaws.apply(bs);
@@ -46,6 +52,16 @@ public class PhysicsSimulator {
 			jo.put("bodies", ja);
 		}
 		return jo;
+	}
+	
+	public void setDeltaTime(double dt) {
+		if (dt < 0) throw new IllegalArgumentException();
+		dTime = dt;
+	}
+	
+	public void setForceLaws(ForceLaws fLaws) {
+		if(fLaws == null) throw new IllegalArgumentException();
+		this.fLaws = fLaws;
 	}
 	
 	public String toString() {

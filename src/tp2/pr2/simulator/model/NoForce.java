@@ -10,7 +10,10 @@ public class NoForce implements ForceLaws{
 
 	@Override
 	public void apply(List<Body> bs) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+	}
+	
+	public String toString() {
+		return "No Force";
 	}
 }
