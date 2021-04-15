@@ -18,7 +18,9 @@ public class EpsilonEqualStates implements StateComparator {
 		
 		Vector2D vecF1, vecF2, vecP1, vecP2, vecV1, vecV2;
 		
-		for(int i = 0; i < s1.length(); i++) {
+		for(int i = 0; i < s1.getJSONArray("bodies").length(); i++) {
+			if(!s1.getJSONArray("bodies").getJSONObject(i).getString("id").equals(s2.getJSONArray("bodies").getJSONObject(i).getString("id"))) return false;
+
 			vecP1 = new Vector2D(s1.getJSONArray("bodies").getJSONObject(i).getJSONArray("p").getDouble(0), s1.getJSONArray("bodies").getJSONObject(i).getJSONArray("p").getDouble(1));
 			vecP2 = new Vector2D(s2.getJSONArray("bodies").getJSONObject(i).getJSONArray("p").getDouble(0), s2.getJSONArray("bodies").getJSONObject(i).getJSONArray("p").getDouble(1));
 			if(vecP1.distanceTo(vecP2) > eps) return false;
