@@ -4,24 +4,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import tp2.pr1.simulator.exceptions.NotEqualStatesException;
-import tp2.pr1.simulator.factories.Factory;
-import tp2.pr1.simulator.model.Body;
-import tp2.pr1.simulator.model.PhysicsSimulator;
+import tp2.pr2.simulator.exceptions.NotEqualStatesException;
+import tp2.pr2.simulator.factories.Factory;
+import tp2.pr2.simulator.model.Body;
+import tp2.pr2.simulator.model.ForceLaws;
+import tp2.pr2.simulator.model.PhysicsSimulator;
+import tp2.pr2.simulator.model.SimulatorObserver;
 
 public class Controller {
-	private Factory<Body> _factory;
+	private Factory<Body> _bodyF;
+	private Factory<ForceLaws> _fLawsF;
 	private PhysicsSimulator _phsysicsSim;
 	
-	
-	public Controller(PhysicsSimulator phsysicsSim, Factory<Body> factory) {
+	public Controller(PhysicsSimulator phsysicsSim, Factory<Body> bFactory, Factory<ForceLaws> fFactory) {
 		this._phsysicsSim = phsysicsSim;
-		this._factory = factory;
+		this._bodyF = bFactory;
+		this._fLawsF = fFactory;
 	}
 	
 	public void loadBodies(InputStream in) {
@@ -29,7 +33,7 @@ public class Controller {
 		JSONArray jAux = jsonInupt.getJSONArray("bodies");
 		
 		for(int i = 0; i < jAux.length(); i++) {
-			_phsysicsSim.addBody(_factory.createInstance(jAux.getJSONObject(i)));
+			_phsysicsSim.addBody(_bodyF.createInstance(jAux.getJSONObject(i)));
 		}
 	}
 	
@@ -65,6 +69,26 @@ public class Controller {
 		p.println(currState);
 		p.println("]");
 		p.println("}");
+	}
+
+	public void reset(){
+		_phsysicsSim.reset();
+	}
+
+	public void setDeltaTime(double dt){
+		_phsysicsSim.setDeltaTime(dt);
+	}
+
+	public void addObserver(SimulatorObserver o) {
+		_phsysicsSim.addObserver(o);
+	}
+
+	public List<JSONObject> getForceLawsInfo(){
+		return _fLawsF.getInfo();
+	}
+
+	public void setForceLaws(JSONObject info) {
+		_phsysicsSim.setForceLaws(_fLawsF.createInstance(info));
 	}
 /*														//El controlador de 4 parametros es tambien capaz de funcionar con 2 por lo que el controlador de 2 elementos NO es necesario.											
 	public void run(int n, OutputStream out) {

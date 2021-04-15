@@ -51,6 +51,4 @@ public class PhysicsSimulator {
 	public String toString() {
 		return getState().toString();
 	}
-	
-	
 }

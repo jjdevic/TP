@@ -2,8 +2,8 @@ package tp2.pr2.simulator.factories;
 
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.control.EpsilonEqualStates;
-import tp2.pr1.simulator.control.StateComparator;
+import tp2.pr2.simulator.control.EpsilonEqualStates;
+import tp2.pr2.simulator.control.StateComparator;
 
 public class EpsilonEqualStatesBuilder extends Builder<StateComparator> {
 	private Double eps;

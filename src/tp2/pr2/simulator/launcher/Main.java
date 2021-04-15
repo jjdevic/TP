@@ -16,21 +16,21 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.control.Controller;
-import tp2.pr1.simulator.control.StateComparator;
-import tp2.pr1.simulator.factories.BasicBodyBuilder;
-import tp2.pr1.simulator.factories.Builder;
-import tp2.pr1.simulator.factories.BuilderBasedFactory;
-import tp2.pr1.simulator.factories.EpsilonEqualStatesBuilder;
-import tp2.pr1.simulator.factories.Factory;
-import tp2.pr1.simulator.factories.MassEqualStatesBuilder;
-import tp2.pr1.simulator.factories.MassLosingBodyBuilder;
-import tp2.pr1.simulator.factories.MovingTowardsFixedPointBuilder;
-import tp2.pr1.simulator.factories.NewtonUniversalGravitationBuilder;
-import tp2.pr1.simulator.factories.NoForceBuilder;
-import tp2.pr1.simulator.model.Body;
-import tp2.pr1.simulator.model.ForceLaws;
-import tp2.pr1.simulator.model.PhysicsSimulator;
+import tp2.pr2.simulator.control.Controller;
+import tp2.pr2.simulator.control.StateComparator;
+import tp2.pr2.simulator.factories.BasicBodyBuilder;
+import tp2.pr2.simulator.factories.Builder;
+import tp2.pr2.simulator.factories.BuilderBasedFactory;
+import tp2.pr2.simulator.factories.EpsilonEqualStatesBuilder;
+import tp2.pr2.simulator.factories.Factory;
+import tp2.pr2.simulator.factories.MassEqualStatesBuilder;
+import tp2.pr2.simulator.factories.MassLosingBodyBuilder;
+import tp2.pr2.simulator.factories.MovingTowardsFixedPointBuilder;
+import tp2.pr2.simulator.factories.NewtonUniversalGravitationBuilder;
+import tp2.pr2.simulator.factories.NoForceBuilder;
+import tp2.pr2.simulator.model.Body;
+import tp2.pr2.simulator.model.ForceLaws;
+import tp2.pr2.simulator.model.PhysicsSimulator;
 
 public class Main {
 
@@ -291,7 +291,7 @@ public class Main {
 			stateCmp = _stateComparatorFactory.createInstance(_stateComparatorInfo);
 		}
 		
-		Controller ctrl = new Controller(sim, _bodyFactory);
+		Controller ctrl = new Controller(sim, _bodyFactory, _forceLawsFactory);
 		ctrl.loadBodies(is);
 		ctrl.run(_Steps, os, expOut, stateCmp);
 		//ctrl.run(_Steps, o);

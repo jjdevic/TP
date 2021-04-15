@@ -4,11 +4,13 @@ import org.json.JSONObject;
 
 public abstract class Builder<T> {
 	protected String type;
+	protected String data;
 	protected String desc;
 	
 	public Builder() {
-		type="";
-		desc="";
+		type= "";
+		data= "";
+		desc= "";
 	}
 	
 	public T createInstance(JSONObject info) {

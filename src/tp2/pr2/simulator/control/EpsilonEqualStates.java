@@ -2,7 +2,7 @@ package tp2.pr2.simulator.control;
 
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.misc.Vector2D;
+import tp2.pr2.simulator.misc.Vector2D;
 
 public class EpsilonEqualStates implements StateComparator {
 	private double eps;

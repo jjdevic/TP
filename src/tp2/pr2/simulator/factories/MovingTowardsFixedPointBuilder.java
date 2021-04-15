@@ -3,16 +3,17 @@ package tp2.pr2.simulator.factories;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.misc.Vector2D;
-import tp2.pr1.simulator.model.ForceLaws;
-import tp2.pr1.simulator.model.MovingTowardsFixedPoint;
+import tp2.pr2.simulator.misc.Vector2D;
+import tp2.pr2.simulator.model.ForceLaws;
+import tp2.pr2.simulator.model.MovingTowardsFixedPoint;
 
 public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	private Vector2D c;
 	
 	public MovingTowardsFixedPointBuilder() {
 		type = "mtfp";
-		desc = "Movimiento a un punto fijo";
+		data = "c : the point towards which bodies move (a json list of 2 numbers, e.g., [100.0,50.0])\n" + "g : the length of the acceleration vector (a number)";
+		desc = "Moving towards a fixed point";
 	}
 
 	@Override

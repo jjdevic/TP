@@ -2,21 +2,21 @@ package tp2.pr2.simulator.factories;
 
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.model.ForceLaws;
-import tp2.pr1.simulator.model.NewtonUniversalGravitation;
+import tp2.pr2.simulator.model.ForceLaws;
+import tp2.pr2.simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
 	public NewtonUniversalGravitationBuilder() {
 		type = "nlug";
+		data = "G : the gravitational constant (a number)";
 		desc = "Newton’s law of universal gravitation";
 	}
 
 	@Override
 	protected ForceLaws createTheInstance(JSONObject info) {
-		Double G = info.has("G") ? info.getDouble("G") : 6.67E-11;
-		 
-		return new NewtonUniversalGravitation(G);
+
+		return new NewtonUniversalGravitation(info.has("G") ? info.getDouble("G") : 6.67E-11);
 	}
 	
 	@Override

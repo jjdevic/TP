@@ -3,8 +3,8 @@ package tp2.pr2.simulator.factories;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import tp2.pr1.simulator.misc.Vector2D;
-import tp2.pr1.simulator.model.Body;
+import tp2.pr2.simulator.misc.Vector2D;
+import tp2.pr2.simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body> {
 	private Vector2D p, v;
