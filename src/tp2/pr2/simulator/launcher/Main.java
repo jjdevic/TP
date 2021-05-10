@@ -1,10 +1,7 @@
 package tp2.pr2.simulator.launcher;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
@@ -31,6 +28,9 @@ import tp2.pr2.simulator.factories.NoForceBuilder;
 import tp2.pr2.simulator.model.Body;
 import tp2.pr2.simulator.model.ForceLaws;
 import tp2.pr2.simulator.model.PhysicsSimulator;
+import tp2.pr2.simulator.view.MainWindow;
+
+import javax.swing.*;
 
 public class Main {
 
@@ -39,6 +39,7 @@ public class Main {
 	private final static Double _dtimeDefaultValue = 2500.0;
 	private final static String _forceLawsDefaultValue = "nlug";
 	private final static String _stateComparatorDefaultValue = "epseq";
+	private final static String _graficModeDefaultValue = "batch";
 
 	// some attributes to stores values corresponding to command-line parameters
 	//
@@ -49,6 +50,7 @@ public class Main {
 	
 	private static String _outFile = null;
 	private static String _expOutFile = null;
+	private static String _mode = null;
 	private static Integer _Steps = null;
 
 	// factories
@@ -101,6 +103,8 @@ public class Main {
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
 
+			parseGraficModeOption(line);
+
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
@@ -139,6 +143,9 @@ public class Main {
 		
 		//steps
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg().desc("An integer representing the number of simulation steps. Default value: 150.").build());
+
+		//GUI or Batch mode
+		cmdLineOptions.addOption(Option.builder("m").hasArg().desc("Execution Mode. Possible values: ’batch (Batch mode), ’gui’ (Graphical User Interface mode). Default value: " + _stateComparatorDefaultValue + "'.").build());
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg()
@@ -276,6 +283,10 @@ public class Main {
 		if(_Steps == null) throw new ParseException("Input failure");
 	}
 
+	private static void parseGraficModeOption(CommandLine line) throws ParseException {
+		_mode = line.getOptionValue("m", _graficModeDefaultValue);
+	}
+
 	private static void startBatchMode() throws Exception {
 		ForceLaws fLaws =  _forceLawsFactory.createInstance(_forceLawsInfo);
 		PhysicsSimulator sim = new PhysicsSimulator(fLaws, _dtime);
@@ -297,9 +308,31 @@ public class Main {
 		//ctrl.run(_Steps, o);
 	}
 
+	private static void startGUIMode() throws FileNotFoundException, InterruptedException, InvocationTargetException {
+		ForceLaws fLaws = _forceLawsFactory.createInstance(_forceLawsInfo);
+		PhysicsSimulator sim = new PhysicsSimulator(fLaws, _dtime);
+		Controller ctrl = new Controller(sim, _bodyFactory, _forceLawsFactory);
+
+		if (Main._inFile != null) {
+			InputStream is = new FileInputStream(new File(Main._inFile));
+			try {
+				ctrl.loadBodies(is);
+			}catch(Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		}
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				new MainWindow(ctrl);
+			}
+		});
+	}
+
 	private static void start(String[] args) throws Exception {
 		parseArgs(args);
-		startBatchMode();
+		if(_mode.equals("batch")) startBatchMode();
+		else startGUIMode();
 	}
 
 	public static void main(String[] args) {
