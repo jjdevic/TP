@@ -1,36 +1,19 @@
 package tp2.pr2.simulator.launcher;
 
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.json.JSONObject;
-
 import tp2.pr2.simulator.control.Controller;
 import tp2.pr2.simulator.control.StateComparator;
-import tp2.pr2.simulator.factories.BasicBodyBuilder;
-import tp2.pr2.simulator.factories.Builder;
-import tp2.pr2.simulator.factories.BuilderBasedFactory;
-import tp2.pr2.simulator.factories.EpsilonEqualStatesBuilder;
-import tp2.pr2.simulator.factories.Factory;
-import tp2.pr2.simulator.factories.MassEqualStatesBuilder;
-import tp2.pr2.simulator.factories.MassLosingBodyBuilder;
-import tp2.pr2.simulator.factories.MovingTowardsFixedPointBuilder;
-import tp2.pr2.simulator.factories.NewtonUniversalGravitationBuilder;
-import tp2.pr2.simulator.factories.NoForceBuilder;
+import tp2.pr2.simulator.factories.*;
 import tp2.pr2.simulator.model.Body;
 import tp2.pr2.simulator.model.ForceLaws;
 import tp2.pr2.simulator.model.PhysicsSimulator;
 import tp2.pr2.simulator.view.MainWindow;
 
 import javax.swing.*;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -90,10 +73,10 @@ public class Main {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
+			parseGraficModeOption(line);
 
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
-			// TODO add support of -o, -eo, and -s (define corresponding parse methods)
 		
 			parseOutputOption(line);
 			parseSteps(line);
@@ -102,8 +85,6 @@ public class Main {
 			parseDeltaTimeOption(line);
 			parseForceLawsOption(line);
 			parseStateComparatorOption(line);
-
-			parseGraficModeOption(line);
 
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
@@ -145,7 +126,7 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg().desc("An integer representing the number of simulation steps. Default value: 150.").build());
 
 		//GUI or Batch mode
-		cmdLineOptions.addOption(Option.builder("m").hasArg().desc("Execution Mode. Possible values: ’batch (Batch mode), ’gui’ (Graphical User Interface mode). Default value: " + _stateComparatorDefaultValue + "'.").build());
+		cmdLineOptions.addOption(Option.builder("m").hasArg().desc("Execution Mode. Possible values: ’batch (Batch mode), ’gui’ (Graphical User Interface mode). Default value: " + _graficModeDefaultValue + "'.").build());
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg()
@@ -197,7 +178,7 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && _mode.equals("batch")) {
 			throw new ParseException("In batch mode an input file of bodies is required");
 		}
 	}
@@ -280,7 +261,7 @@ public class Main {
 		catch(NumberFormatException e) {
 			_Steps = null;
 		}
-		if(_Steps == null) throw new ParseException("Input failure");
+		if(_Steps == null && _mode.equals("batch")) throw new ParseException("Input failure");
 	}
 
 	private static void parseGraficModeOption(CommandLine line) throws ParseException {

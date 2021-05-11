@@ -6,6 +6,7 @@ import tp2.pr2.simulator.model.Body;
 import tp2.pr2.simulator.model.SimulatorObserver;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -84,6 +85,8 @@ public class Viewer extends JComponent implements SimulatorObserver {
             @Override
             public void mouseExited(MouseEvent e) { }
         });
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 2), "Viewer", TitledBorder.LEFT, TitledBorder.TOP));
     }
 
     @Override

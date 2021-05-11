@@ -27,8 +27,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     private void initGUI() {
         JPanel p = new JPanel();
         p.setLayout(new BoxLayout(p, BoxLayout.PAGE_AXIS));
-        JToolBar buttons = new JToolBar();
-        p.add(buttons, BorderLayout.PAGE_START);
+        JToolBar b = new JToolBar();
+        p.add(b, BorderLayout.PAGE_START);
         JButton fileB, forceB, playB, stopB, offB;
 
         _time = new JSpinner(new SpinnerNumberModel(10000, 1, 10000, 1));
@@ -58,20 +58,20 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         offB.setIcon(new ImageIcon("resources/icons/exit.png"));
         offB.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        p.add(fileB);
-        p.add(forceB);
-        p.add(playB);
-        p.add(stopB);
-        p.add(offB);
+        b.add(fileB);
+        b.add(forceB);
+        b.add(playB);
+        b.add(stopB);
+        b.add(offB);
 
-        buttons.add( new JLabel("Steps: "));
-        buttons.add(_time);
-        buttons.add( new JLabel("Delta-Time: "));
-        buttons.add(_dTime);
-        buttons.add(offB);
+        b.add( new JLabel("Steps: "));
+        b.add(_time);
+        b.add( new JLabel("Delta-Time: "));
+        b.add(_dTime);
+        b.add(Box.createHorizontalStrut(340));
+        b.add(offB);
 
-        this.add(p);
-        this.setSize(700, 300);
+        this.add(b);
         setVisible(true);
 
 
@@ -100,6 +100,16 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             }
         });
 
+        forceB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+
+
+            }
+        });
+
         playB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,7 +120,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
                 _stopped = false;
                 _ctrl.setDeltaTime(Double.parseDouble(_dTime.getText()));
-                run_sim((int) _time.getValue());
+                runSimulator((int) _time.getValue());
             }
         });
 
@@ -124,18 +134,16 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         offB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int n = JOptionPane.showOptionDialog(new JFrame(), "Are sure you want to quit?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                int n = JOptionPane.showOptionDialog(new JFrame(), "Are you sure you want to quit?", "Exit", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
                 if (n == 0) {System.exit(0); }
             }
         });
-
-
     }
 
-    private void run_sim(int n) {
-        if ( n > 0 && !_stopped ) {
+    private void runSimulator(int _steps) {
+        if ( _steps > 0 && !_stopped ) {
             try {
-                //_ctrl.run(1);
+                _ctrl.run(_steps, null, null, null);
             }
             catch (Exception e) {
                 // TODO show the error in a dialog box
@@ -146,7 +154,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             SwingUtilities.invokeLater( new Runnable() {
                 @Override
                 public void run() {
-                    run_sim(n-1);
+                    runSimulator(_steps - 1);
                 }
             });
         }
