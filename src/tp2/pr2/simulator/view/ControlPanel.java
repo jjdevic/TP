@@ -1,5 +1,7 @@
 package tp2.pr2.simulator.view;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import tp2.pr2.simulator.control.Controller;
 import tp2.pr2.simulator.model.Body;
@@ -199,20 +201,41 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         view.setPreferredSize(new Dimension(800, 250));
 
         String[] option = new String[] {"Cancelar", "Ok"};
-        if(JOptionPane.showOptionDialog(null, view,"Force Laws Selection", JOptionPane.YES_NO_OPTION, 3, null, option, null) == 1) {
+        if(JOptionPane.showOptionDialog(null, view,"Force Laws Selection", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, null) == 1) {
             fLaw = new JSONObject();
             JSONObject jAux = new JSONObject();
-
             Iterator<String> keys2 =  _ctrl.getForceLawsInfo().get(cont).getJSONObject("data").keys();
             int j = 0;
             while(keys2.hasNext()) {
                 String k = keys2.next();
-                jAux.put(k, tabla.getValueAt(j, 1));
+                if(String.valueOf(tabla.getValueAt(j, 1)).charAt(0) == '[') {
+                    JSONArray jAuxArr = new JSONArray();
+                    StringBuilder aux3 = new StringBuilder();
+                    int y = 0;
+                    for(int x = 0; x < 2; x++){
+                        y++;
+                        do{
+                            aux3.append(String.valueOf(tabla.getValueAt(j, 1)).charAt(y));
+                            y++;
+                        } while(String.valueOf(tabla.getValueAt(j, 1)).charAt(y) != ',' && String.valueOf(tabla.getValueAt(j, 1)).charAt(y) != ']');
+                        jAuxArr.put(aux3.toString());
+                        aux3 = new StringBuilder(new String(""));
+                    }
+                    jAuxArr.put(aux3.toString());
+                    jAux.put(k, jAuxArr);
+                }
+                else {
+                    jAux.put(k, tabla.getValueAt(j, 1));
+                }
                 j++;
             }
             fLaw.put("type", _ctrl.getForceLawsInfo().get(cont).get("type"));
             fLaw.put("data", jAux);
-            _ctrl.setForceLaws(fLaw);
+            try {
+                _ctrl.setForceLaws(fLaw);
+            } catch (JSONException ex1) {
+                JOptionPane.showMessageDialog(null, "Datos incorrectos");
+            }
         }
     }
 
@@ -262,14 +285,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     }
 
     @Override
-    public void onBodyAdded(List<Body> bodies, Body b) {
-
-    }
+    public void onBodyAdded(List<Body> bodies, Body b) { }
 
     @Override
-    public void onAdvance(List<Body> bodies, double time) {
-
-    }
+    public void onAdvance(List<Body> bodies, double time) { }
 
     @Override
     public void onDeltaTimeChanged(double dt) {
@@ -281,7 +300,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     }
 
     @Override
-    public void onForceLawsChanged(String fLawsDesc) {
+    public void onForceLawsChanged(String fLawsDesc) { }
 
-    }
 }
