@@ -1,21 +1,20 @@
 package tp2.pr2.simulator.control;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import tp2.pr2.simulator.exceptions.NotEqualStatesException;
 import tp2.pr2.simulator.factories.Factory;
 import tp2.pr2.simulator.model.Body;
 import tp2.pr2.simulator.model.ForceLaws;
 import tp2.pr2.simulator.model.PhysicsSimulator;
 import tp2.pr2.simulator.model.SimulatorObserver;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.List;
 
 public class Controller {
 	private Factory<Body> _bodyF;
@@ -34,6 +33,12 @@ public class Controller {
 		
 		for(int i = 0; i < jAux.length(); i++) {
 			_phsysicsSim.addBody(_bodyF.createInstance(jAux.getJSONObject(i)));
+		}
+	}
+
+	public void run(int n) {
+		for(int i = 0; i < n; i++) {
+			_phsysicsSim.advance();
 		}
 	}
 	

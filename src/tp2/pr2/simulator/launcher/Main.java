@@ -294,8 +294,8 @@ public class Main {
 		PhysicsSimulator sim = new PhysicsSimulator(fLaws, _dtime);
 		Controller ctrl = new Controller(sim, _bodyFactory, _forceLawsFactory);
 
-		if (Main._inFile != null) {
-			InputStream is = new FileInputStream(new File(Main._inFile));
+		if (_inFile != null) {
+			InputStream is = new FileInputStream(new File(_inFile));
 			try {
 				ctrl.loadBodies(is);
 			}catch(Exception e) {

@@ -25,6 +25,7 @@ public class MainWindow extends JFrame {
         setContentPane(mainPanel);
 
         auxPanel.setLayout(new BoxLayout(auxPanel, BoxLayout.Y_AXIS));
+        bodiesTable.setPreferredSize(new Dimension(800, 200));
         auxPanel.add(bodiesTable);
         universalViewer.setPreferredSize(new Dimension(800, 500));
         auxPanel.add(universalViewer);

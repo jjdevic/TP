@@ -12,23 +12,23 @@ import java.util.List;
 public class BodiesTableModel extends AbstractTableModel implements SimulatorObserver {
 
     private List<Body> _bodies;
-    static final String[] _colNames = { "ID", "Mass", "Position", "Velocity", "Force" };
-    private String[][] table;
+    private String[] _colNames = { "ID", "Mass", "Position", "Velocity", "Force" };
+    private String[] table;
 
     BodiesTableModel(Controller ctrl) {
         _bodies = new ArrayList<>();
-        this.table = new String[_bodies.size()][_colNames.length];
+        table = new String[_colNames.length];
         ctrl.addObserver(this);
     }
 
     @Override
     public int getRowCount() {
-        return _colNames.length;
+        return _bodies.size();
     }
 
     @Override
     public int getColumnCount() {
-        return _bodies.size();
+        return _colNames.length;
     }
 
     @Override
@@ -38,14 +38,20 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return table[rowIndex][columnIndex];
+        table[0] = _bodies.get(rowIndex).getId().toString();
+        table[1] = String.valueOf(_bodies.get(rowIndex).getMass());
+        table[2] = String.valueOf(_bodies.get(rowIndex).getPosition());
+        table[3] = String.valueOf(_bodies.get(rowIndex).getVelocity());
+        table[4] = String.valueOf(_bodies.get(rowIndex).getForce());
+        return table[columnIndex];
     }
 
     @Override
     public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                _bodies = new ArrayList<>(bodies);
+                _bodies = bodies;
                 fireTableStructureChanged();
             }
         });
@@ -54,8 +60,9 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
     @Override
     public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                _bodies = new ArrayList<>(bodies);
+                _bodies = bodies;
                 fireTableStructureChanged();
             }
         });
@@ -64,8 +71,9 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
     @Override
     public void onBodyAdded(List<Body> bodies, Body b) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                _bodies = new ArrayList<>(bodies);
+                _bodies = bodies;
                 fireTableStructureChanged();
             }
         });
@@ -74,20 +82,17 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
     @Override
     public void onAdvance(List<Body> bodies, double time) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                _bodies = new ArrayList<>(bodies);
+                _bodies = bodies;
                 fireTableStructureChanged();
             }
         });
     }
 
     @Override
-    public void onDeltaTimeChanged(double dt) {
-
-    }
+    public void onDeltaTimeChanged(double dt) { }
 
     @Override
-    public void onForceLawsChanged(String fLawsDesc) {
-
-    }
+    public void onForceLawsChanged(String fLawsDesc) { }
 }

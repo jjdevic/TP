@@ -19,6 +19,8 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
     private int _centerX;
     private int _centerY;
+    private int _radious = 5;
+    private int _weigth = 5;
     private double _scale;
     private List<Body> _bodies;
     private boolean _showHelp;
@@ -92,36 +94,46 @@ public class Viewer extends JComponent implements SimulatorObserver {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // use ’gr’ to draw not ’g’ --- it gives nicer results
         Graphics2D gr = (Graphics2D) g;
         gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        // calculate the center
+
         _centerX = getWidth() / 2;
         _centerY = getHeight() / 2;
-        // TODO draw a cross at center
-        gr.setColor(Color.red);
-        gr.drawString("+", _centerX, _centerY);
-        // TODO draw bodies (with vectors if _showVectors is true)
-        for (Body body : _bodies) {
-            gr.setColor(Color.blue);
 
-            double x = body.getPosition().getX();
-            double y = body.getPosition().getY();
+        g.setColor(Color.RED);
+        g.drawLine(_centerX, _centerY, _centerX - _radious, _centerY);
+        g.drawLine(_centerX, _centerY, _centerX, _centerY - _radious);
+        g.drawLine(_centerX, _centerY, _centerX, _centerY + _radious);
+        g.drawLine(_centerX, _centerY, _centerX + _radious, _centerY);
 
-            gr.drawOval(_centerX + (int) (x / _scale), _centerY - (int) (y / _scale), 8, 8);
-            gr.fillOval(_centerX + (int) (x / _scale), _centerY - (int) (y / _scale), 8, 8);
-            gr.setColor(Color.black);
-            gr.drawString(body.getId(), _centerX + (int) (x / _scale), _centerY - (int) (y / _scale));
-        }
-        // TODO draw help if _showHelp is true
-        if (this._showHelp) {
+        if(_showHelp) {
             gr.setColor(Color.red);
             gr.drawString("h: toggle help, +: zoom-in, -: zoom-out, =: fit", 5, 23);
             gr.drawString("Scaling ratio: " + this._scale, 5, 35);
         }
 
+        for(Body b : _bodies) {
+            if(_showVectors) {
+                drawLineWithArrow(g, _centerX + (int)(b.getPosition().getX() /_scale), _centerY + (int)(b.getPosition().getY() /_scale),
+                        _centerX + (int)(b.getPosition().getX() /_scale + 4 * _radious * b.getForce().direction().getX()),
+                        _centerY + (int)(b.getPosition().getY() /_scale + 4 * _radious * b.getForce().direction().getY()),
+                        _weigth, _radious, Color.red, Color.red);
+                drawLineWithArrow(g, _centerX + (int)(b.getPosition().getX() /_scale), _centerY + (int)(b.getPosition().getY() /_scale),
+                        (int)(_centerX + b.getPosition().getX() /_scale + 4 * _radious * b.getVelocity().direction().getX()),
+                        (int)(_centerY + b.getPosition().getY() /_scale + 4 * _radious * b.getVelocity().direction().getY()),
+                        _weigth, _radious, Color.green, Color.green);
+            }
+
+            g.setColor(Color.black);
+            g.drawString(b.getId(), _centerX + (int)(b.getPosition().getX() /_scale) + 2*_radious, _centerY + (int)(b.getPosition().getY() /_scale) + 3*_radious);
+
+            g.setColor(Color.blue);
+            g.drawOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radious, _centerY + (int)(b.getPosition().getY() /_scale) - _radious, 2*_radious, 2*_radious);
+            g.fillOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radious, _centerY + (int)(b.getPosition().getY() /_scale) - _radious, 2*_radious, 2*_radious);
+        }
     }
+
     // other private/protected methods
     private void autoScale() {
         double max = 1.0;
@@ -134,6 +146,9 @@ public class Viewer extends JComponent implements SimulatorObserver {
         _scale = max > size ? 4.0 * max / size : 1.0;
     }
 
+    // This method draws a line from (x1,y1) to (x2,y2) with an arrow.
+    // The arrow is of height h and width w.
+    // The last two arguments are the colors of the arrow and the line
     private void drawLineWithArrow(Graphics g, int x1, int y1, int x2, int y2, int w, int h, Color lineColor, Color arrowColor) {
         int dx = x2 - x1, dy = y2 - y1;
         double D = Math.sqrt(dx * dx + dy * dy);
@@ -158,29 +173,50 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
     @Override
     public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
-        _bodies = bodies;
-        autoScale();
-        repaint();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                _bodies = bodies;
+                autoScale();
+                repaint();
+            }
+        });
+
     }
 
     @Override
     public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
-        _bodies = bodies;
-        autoScale();
-        repaint();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                _bodies = bodies;
+                autoScale();
+                repaint();
+            }
+        });
     }
 
     @Override
     public void onBodyAdded(List<Body> bodies, Body b) {
-        _bodies = bodies;
-        autoScale();
-        repaint();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                _bodies = bodies;
+                autoScale();
+                repaint();
+            }
+        });
     }
 
     @Override
     public void onAdvance(List<Body> bodies, double time) {
-        _bodies = bodies;
-        repaint();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                _bodies = bodies;
+                repaint();
+            }
+        });
     }
 
     @Override

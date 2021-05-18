@@ -1,10 +1,11 @@
 package tp2.pr2.simulator.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PhysicsSimulator {
 	private List<Body> bs;
@@ -74,8 +75,14 @@ public class PhysicsSimulator {
 	}
 
 	public void addObserver(SimulatorObserver o) {
-		sObs.add(o);
-		o.onRegister(bs, aTime, dTime, fLaws.toString());
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				o.onRegister(bs, aTime, dTime, fLaws.toString());
+				sObs.add(o);
+			}
+		});
+
 	}
 	
 	
