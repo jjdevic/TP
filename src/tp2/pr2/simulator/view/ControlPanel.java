@@ -24,12 +24,14 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     private JButton fileB, forceB, runB, stopB, offB;
     private JToolBar b;
     private JSONObject fLaw;
+    private boolean _opened;
     private boolean _stopped;
     private String[][] aux;
     private int cont;
 
     public ControlPanel(Controller ctrl) {
         _ctrl = ctrl;
+        _opened = false;
         _stopped = true;
         _ctrl.addObserver(this);
         initGUI();
@@ -94,6 +96,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                         File file = fileChooser.getSelectedFile();
                         _ctrl.reset();
                         _ctrl.loadBodies(new FileInputStream(file));
+                        _opened = true;
                     }
                     else if(selection == JFileChooser.ERROR_OPTION) {
                         JOptionPane.showMessageDialog(null, "Failure");
@@ -116,14 +119,15 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         runB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _stopped = false;
-                _ctrl.setDeltaTime(Double.parseDouble(_dTime.getText()));
-
-                fileB.setVisible(false);
-                forceB.setVisible(false);
-                offB.setVisible(false);
-
-                runSimulator((int) _steps.getValue());
+                if(_opened) {
+                    _stopped = false;
+                    _ctrl.setDeltaTime(Double.parseDouble(_dTime.getText()));
+                    fileB.setVisible(false);
+                    forceB.setVisible(false);
+                    offB.setVisible(false);
+                    runSimulator((int) _steps.getValue());
+                }
+                else JOptionPane.showMessageDialog(null, "No bodies list loaded");
             }
         });
 

@@ -16,6 +16,7 @@ public class StatusBar extends JPanel implements SimulatorObserver {
 
     public StatusBar(Controller ctrl) {
         _currTime = new JLabel("Time: " + 0.0);
+        _currTime.setPreferredSize(new Dimension(100, 30));
         _currLaws = new JLabel("Laws: ");
         _numOfBodies = new JLabel("Bodies: " + 0);
         initGUI();
@@ -26,10 +27,10 @@ public class StatusBar extends JPanel implements SimulatorObserver {
         this.setLayout( new FlowLayout( FlowLayout.LEFT ));
         this.setBorder( BorderFactory.createBevelBorder( 1 ));
 
+        _currTime.setPreferredSize(new Dimension(100, 30));
         this.add(_currTime);
-        this.add(Box.createHorizontalStrut(35));
+        _numOfBodies.setPreferredSize(new Dimension(100, 30));
         this.add(_numOfBodies);
-        this.add(Box.createHorizontalStrut(35));
         this.add(_currLaws);
     }
 
