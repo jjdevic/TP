@@ -50,7 +50,7 @@ public class StatusBar extends JPanel implements SimulatorObserver {
             public void run() {
                 _numOfBodies.setText("Bodies: " + String.valueOf(bodies.size()));
                 _currTime.setText(String.valueOf("Time: " + time));
-                _currLaws.setText("Laws: ");
+                _currLaws.setText("Laws: " + fLawsDesc);
             }
         });
     }

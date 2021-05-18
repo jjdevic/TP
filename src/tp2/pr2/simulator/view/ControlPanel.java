@@ -95,11 +95,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                         _ctrl.reset();
                         _ctrl.loadBodies(new FileInputStream(file));
                     }
-                    else if(selection == JFileChooser.CANCEL_OPTION) {
-                        System.out.println("Cancelled");
-                    }
                     else if(selection == JFileChooser.ERROR_OPTION) {
-                        System.out.println("Something went wrong...");
+                        JOptionPane.showMessageDialog(null, "Failure");
                     }
 
                 } catch(Exception e1) {
@@ -233,7 +230,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             fLaw.put("data", jAux);
             try {
                 _ctrl.setForceLaws(fLaw);
-            } catch (JSONException ex1) {
+            } catch (JSONException ex) {
                 JOptionPane.showMessageDialog(null, "Datos incorrectos");
             }
         }
