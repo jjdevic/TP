@@ -149,12 +149,11 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
     private void forceSet(Controller _ctrl) {
         String[] _colNames = new String[] { "Key", "Value", "Description" };
-        JLabel message = new JLabel("Select a force law and provide values for the parametes in the <b>Value column</b>");
+        JLabel message = new JLabel("Select a force law and provide values for the parameters in the <b>Value column</b>");
         JLabel lFLaws = new JLabel("Force Laws: ");
         JTable tabla = new JTable();
         JComboBox<Object> cBox = new JComboBox<>();
 
-        cBox.addItem("--Choose an option--");
         for(int i = 0; i < _ctrl.getForceLawsInfo().size(); i++){
             cBox.addItem(_ctrl.getForceLawsInfo().get(i).get("desc"));
         }
@@ -191,14 +190,19 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                 tabla.getColumnModel().getColumn(2).setPreferredWidth(400);
             }
         });
+        cBox.setPrototypeDisplayValue("text here");
+        JPanel pAux = new JPanel();
+        pAux.add(lFLaws);
+        pAux.add((cBox));
+        cBox.setPreferredSize(new Dimension(400, 25));
+        pAux.setPreferredSize(new Dimension(500, 50));
 
         JScrollPane p = new JScrollPane(tabla);
         JPanel view = new JPanel();
         view.setLayout(new BoxLayout(view, BoxLayout.Y_AXIS));
         view.add(message);
         view.add(p);
-        view.add(lFLaws, BorderLayout.PAGE_END);
-        view.add(cBox, BorderLayout.PAGE_END);
+        view.add(pAux, BorderLayout.PAGE_END);
         view.setPreferredSize(new Dimension(800, 250));
 
         String[] option = new String[] {"Cancelar", "Ok"};
@@ -235,7 +239,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             try {
                 _ctrl.setForceLaws(fLaw);
             } catch (JSONException ex) {
-                JOptionPane.showMessageDialog(null, "Datos incorrectos");
+                JOptionPane.showMessageDialog(null, "Incorrect data");
             }
         }
     }

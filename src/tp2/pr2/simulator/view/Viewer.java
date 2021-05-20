@@ -17,10 +17,6 @@ import java.util.List;
 
 public class Viewer extends JComponent implements SimulatorObserver {
 
-    private int _centerX;
-    private int _centerY;
-    private int _radious = 5;
-    private int _weigth = 5;
     private double _scale;
     private List<Body> _bodies;
     private boolean _showHelp;
@@ -98,39 +94,42 @@ public class Viewer extends JComponent implements SimulatorObserver {
         gr.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         gr.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        _centerX = getWidth() / 2;
-        _centerY = getHeight() / 2;
+        int _centerX = getWidth() / 2;
+        int _centerY = getHeight() / 2;
+
+        int _radius = 5;
+        int _width = 5;
 
         g.setColor(Color.RED);
-        g.drawLine(_centerX, _centerY, _centerX - _radious, _centerY);
-        g.drawLine(_centerX, _centerY, _centerX, _centerY - _radious);
-        g.drawLine(_centerX, _centerY, _centerX, _centerY + _radious);
-        g.drawLine(_centerX, _centerY, _centerX + _radious, _centerY);
+        g.drawLine(_centerX, _centerY, _centerX - _radius, _centerY);
+        g.drawLine(_centerX, _centerY, _centerX, _centerY - _radius);
+        g.drawLine(_centerX, _centerY, _centerX, _centerY + _radius);
+        g.drawLine(_centerX, _centerY, _centerX + _radius, _centerY);
 
         if(_showHelp) {
             gr.setColor(Color.red);
-            gr.drawString("h: toggle help, +: zoom-in, -: zoom-out, =: fit", 5, 23);
-            gr.drawString("Scaling ratio: " + this._scale, 5, 35);
+            gr.drawString("h: toggle help, +: zoom-in, -: zoom-out, =: fit", 8, 25);
+            gr.drawString("Scaling ratio: " + this._scale, 8, 37);
         }
 
         for(Body b : _bodies) {
             if(_showVectors) {
                 drawLineWithArrow(g, _centerX + (int)(b.getPosition().getX() /_scale), _centerY + (int)(b.getPosition().getY() /_scale),
-                        _centerX + (int)(b.getPosition().getX() /_scale + 4 * _radious * b.getForce().direction().getX()),
-                        _centerY + (int)(b.getPosition().getY() /_scale + 4 * _radious * b.getForce().direction().getY()),
-                        _weigth, _radious, Color.red, Color.red);
+                        (int)(_centerX + b.getPosition().getX() /_scale + 4 * _radius * b.getVelocity().direction().getX()),
+                        (int)(_centerY + b.getPosition().getY() /_scale + 4 * _radius * b.getVelocity().direction().getY()),
+                        _width, _radius, Color.green, Color.green);
                 drawLineWithArrow(g, _centerX + (int)(b.getPosition().getX() /_scale), _centerY + (int)(b.getPosition().getY() /_scale),
-                        (int)(_centerX + b.getPosition().getX() /_scale + 4 * _radious * b.getVelocity().direction().getX()),
-                        (int)(_centerY + b.getPosition().getY() /_scale + 4 * _radious * b.getVelocity().direction().getY()),
-                        _weigth, _radious, Color.green, Color.green);
+                        _centerX + (int)(b.getPosition().getX() /_scale + 4 * _radius * b.getForce().direction().getX()),
+                        _centerY + (int)(b.getPosition().getY() /_scale + 4 * _radius * b.getForce().direction().getY()),
+                        _width, _radius, Color.red, Color.red);
             }
 
             g.setColor(Color.black);
-            g.drawString(b.getId(), _centerX + (int)(b.getPosition().getX() /_scale) + 2*_radious, _centerY + (int)(b.getPosition().getY() /_scale) + 3*_radious);
+            g.drawString(b.getId(), _centerX + (int)(b.getPosition().getX() /_scale) + 2*_radius, _centerY + (int)(b.getPosition().getY() /_scale) + 3*_radius);
 
             g.setColor(Color.blue);
-            g.drawOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radious, _centerY + (int)(b.getPosition().getY() /_scale) - _radious, 2*_radious, 2*_radious);
-            g.fillOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radious, _centerY + (int)(b.getPosition().getY() /_scale) - _radious, 2*_radious, 2*_radious);
+            g.drawOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radius, _centerY + (int)(b.getPosition().getY() /_scale) - _radius, 2*_radius, 2*_radius);
+            g.fillOval(_centerX + (int)(b.getPosition().getX() /_scale) - _radius, _centerY + (int)(b.getPosition().getY() /_scale) - _radius, 2*_radius, 2*_radius);
         }
     }
 
