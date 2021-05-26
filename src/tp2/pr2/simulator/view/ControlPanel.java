@@ -122,7 +122,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                 if(_opened) {
                     _stopped = false;
                     _ctrl.setDeltaTime(Double.parseDouble(_dTime.getText()));
-                    fileB.setVisible(false);
+                    fileB.enable(false);
                     forceB.setVisible(false);
                     offB.setVisible(false);
                     runSimulator((int) _steps.getValue());
@@ -148,6 +148,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     }
 
     private void forceSet(Controller _ctrl) {
+
         String[] _colNames = new String[] { "Key", "Value", "Description" };
         JLabel message = new JLabel("Select a force law and provide values for the parameters in the <b>Value column</b>");
         JLabel lFLaws = new JLabel("Force Laws: ");
@@ -242,6 +243,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                 JOptionPane.showMessageDialog(null, "Incorrect data");
             }
         }
+
     }
 
     private void runSimulator(int _steps) {
