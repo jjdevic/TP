@@ -1,8 +1,8 @@
-package tp2.pr2.simulator.view;
+package tp2.prFinal.simulator.view;
 
-import tp2.pr2.simulator.control.Controller;
-import tp2.pr2.simulator.model.Body;
-import tp2.pr2.simulator.model.SimulatorObserver;
+import tp2.prFinal.simulator.control.Controller;
+import tp2.prFinal.simulator.model.Body;
+import tp2.prFinal.simulator.model.SimulatorObserver;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

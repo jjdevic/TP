@@ -1,6 +1,6 @@
-package tp2.pr2.simulator.view;
+package tp2.prFinal.simulator.view;
 
-import tp2.pr2.simulator.control.Controller;
+import tp2.prFinal.simulator.control.Controller;
 
 import javax.swing.*;
 import java.awt.*;

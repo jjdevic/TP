@@ -237,6 +237,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             }
             fLaw.put("type", _ctrl.getForceLawsInfo().get(cont).get("type"));
             fLaw.put("data", jAux);
+            System.out.println(fLaw);
             try {
                 _ctrl.setForceLaws(fLaw);
             } catch (JSONException ex) {

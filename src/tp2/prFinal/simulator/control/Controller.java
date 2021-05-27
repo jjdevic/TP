@@ -20,6 +20,7 @@ public class Controller {
 	private Factory<Body> _bodyF;
 	private Factory<ForceLaws> _fLawsF;
 	private PhysicsSimulator _phsysicsSim;
+	public static boolean _BODIES_LOADED = false;
 	
 	public Controller(PhysicsSimulator phsysicsSim, Factory<Body> bFactory, Factory<ForceLaws> fFactory) {
 		this._phsysicsSim = phsysicsSim;
@@ -28,12 +29,13 @@ public class Controller {
 	}
 	
 	public void loadBodies(InputStream in) {
-		JSONObject jsonInupt = new JSONObject(new JSONTokener(in));
-		JSONArray jAux = jsonInupt.getJSONArray("bodies");
+		JSONObject jsonInput = new JSONObject(new JSONTokener(in));
+		JSONArray jAux = jsonInput.getJSONArray("bodies");
 		
 		for(int i = 0; i < jAux.length(); i++) {
 			_phsysicsSim.addBody(_bodyF.createInstance(jAux.getJSONObject(i)));
 		}
+		_BODIES_LOADED = true;
 	}
 
 	public void run(int n) {
@@ -77,6 +79,7 @@ public class Controller {
 	}
 
 	public void reset(){
+		_BODIES_LOADED = false;
 		_phsysicsSim.reset();
 	}
 
