@@ -180,7 +180,6 @@ public class Viewer extends JComponent implements SimulatorObserver {
                 repaint();
             }
         });
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package tp2.prFinal.simulator.view;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import tp2.prFinal.simulator.control.Controller;
 import tp2.prFinal.simulator.model.Body;
@@ -25,7 +26,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     private JSONObject fLaw;
     private boolean _stopped;
     private String[][] aux;
-    private int cont;
+    private int index;
     private JFileChooser fileChooser;
     private JComboBox<Object> cBox;
 
@@ -146,8 +147,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
     private void setForce(Controller _ctrl) {
         String[] _colNames = new String[] { "Key", "Value", "Description" };
-        JLabel lTopMessage = new JLabel("<html><p>Select a force law and provide values for the parametes in the <b>Value column</b> (default values are used for parametes with no value).</p></html>");
-        JLabel lFLaws = new JLabel("Force Laws: ");
         JTable tabla = new JTable();
         cBox = new JComboBox<>();
         cBox.setPreferredSize(new Dimension(400, 25));
@@ -159,52 +158,55 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         cBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cont = cBox.getSelectedIndex();
-                aux = new String[ _ctrl.getForceLawsInfo().get(cont).getJSONObject("data").length()][_colNames.length];
-                Iterator<String> keys =  _ctrl.getForceLawsInfo().get(cont).getJSONObject("data").keys();
+                index = cBox.getSelectedIndex();
+                aux = new String[ _ctrl.getForceLawsInfo().get(index).getJSONObject("data").length()][_colNames.length];
+                Iterator<String> keys =  _ctrl.getForceLawsInfo().get(index).getJSONObject("data").keys();
                 for(int i = 0; keys.hasNext(); i++){
                     String k = keys.next();
                     aux[i][0] = k;
-                    aux[i][2] = _ctrl.getForceLawsInfo().get(cont).getJSONObject("data").getString(k);
+                    aux[i][2] = _ctrl.getForceLawsInfo().get(index).getJSONObject("data").getString(k);
                 }
 
-                DefaultTableModel tmodel = new DefaultTableModel(aux, _colNames) {
-                    private static final long serialVersionUID = 1L;
+                DefaultTableModel tModel = new DefaultTableModel(aux, _colNames) {
                     @Override
                     public boolean isCellEditable(int row, int col) {
                         return col == 1;
                     }
                 };
-                tabla.setModel(tmodel);
+                tabla.setModel(tModel);
                 tabla.getColumnModel().getColumn(2).setPreferredWidth(400);
             }
         });
-        JScrollPane p = new JScrollPane(tabla);
+
         JPanel pAux = new JPanel();
         JPanel pAux2 = new JPanel();
-        JPanel view = new JPanel();
+        JPanel view = new JPanel(new BorderLayout());
         JDialog dialog = new JDialog();
 
-        pAux.add(lFLaws);
-        pAux.add((cBox));
+        pAux.add(new JLabel("Force Laws: "));
+        pAux.add(cBox);
 
-        view.setLayout(new BoxLayout(view, BoxLayout.PAGE_AXIS));
-        view.add(p);
+        view.add(new JScrollPane(tabla));
         view.add(pAux, BorderLayout.PAGE_END);
         view.setPreferredSize(new Dimension(800, 250));
 
         pAux2.add(OkB = new JButton("OK"));
-        pAux2.add(cancelB = new JButton("Cancelar"));
+        pAux2.add(cancelB = new JButton("Cancel"));
 
         OkB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fLaw = new JSONObject();
-                fLaw.put("data", getData(tabla));
-                fLaw.put("type", _ctrl.getForceLawsInfo().get(cont).get("type"));
-                _ctrl.setForceLaws(fLaw);
-                dialog.setVisible(false);
-            }});
+               try {
+                   fLaw = new JSONObject();
+                   fLaw.put("data", getData(tabla));
+                   fLaw.put("type", _ctrl.getForceLawsInfo().get(index).get("type"));
+                   _ctrl.setForceLaws(fLaw);
+                   dialog.setVisible(false);
+               } catch (JSONException ex){
+                   JOptionPane.showMessageDialog(null, "Incorrect Format Argument");
+               }
+            }
+        });
 
         cancelB.addActionListener(new ActionListener() {
             @Override
@@ -213,7 +215,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
             }
         });
 
-        dialog.add(lTopMessage, BorderLayout.PAGE_START);
+        dialog.add(new JLabel("<html><p>Select a force law and provide values for the parameters in the <b>Value column</b> " +
+                "(default values are used for parameters with no value).</p></html>"), BorderLayout.PAGE_START);
         dialog.add(view, BorderLayout.CENTER);
         dialog.add(pAux2, BorderLayout.PAGE_END);
         dialog.pack();
@@ -237,9 +240,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
                 }
             });
         }
-        else {
-            setEnable(true);
-        }
+        else setEnable(true);
     }
 
     @Override
@@ -278,12 +279,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
     @Override
     public void onForceLawsChanged(String fLawsDesc) { }
 
-    private JSONObject getData(JTable tabla){
-        JSONObject jAux;
+    private JSONObject getData(JTable tabla) {
         StringBuilder s = new StringBuilder();
+        JSONObject jAux;
         s.append('{');
         for (int i = 0; i < aux.length; i++) {
-            if (tabla.getValueAt(0, 0) != null && tabla.getValueAt(0, 1) != null) {
+            if (tabla.getValueAt(i, 0) != null && tabla.getValueAt(i, 1) != null) {
                 s.append('"');
                 s.append(tabla.getValueAt(i, 0));
                 s.append('"');
@@ -294,11 +295,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         }
         if (s.length() > 1) s.deleteCharAt(s.length() - 1);
         s.append('}');
-
         return jAux = new JSONObject(s.toString());
     }
 
-    private void setEnable(boolean state){
+    private void setEnable(boolean state) {
         _stopped = state;
         fileB.setEnabled(state);
         forceB.setEnabled(state);
