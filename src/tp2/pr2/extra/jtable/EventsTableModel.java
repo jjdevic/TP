@@ -1,8 +1,7 @@
 package tp2.pr2.extra.jtable;
 
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
+import java.util.List;
 
 public class EventsTableModel extends AbstractTableModel {
 

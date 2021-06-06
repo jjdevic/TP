@@ -1,8 +1,8 @@
 package tp2.pr2.simulator.model;
 
-import java.util.List;
-
 import tp2.pr2.simulator.misc.Vector2D;
+
+import java.util.List;
 
 public class MovingTowardsFixedPoint implements ForceLaws{
 	private Vector2D _c;

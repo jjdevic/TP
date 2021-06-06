@@ -1,9 +1,9 @@
 package tp1.pr1.logic;
 
-import java.util.Random;
-
 import tp1.pr1.GameObjectBoard;
 import tp1.pr1.Player;
+
+import java.util.Random;
 
 public class Game {
 	private Level level;

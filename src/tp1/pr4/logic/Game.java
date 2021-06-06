@@ -1,17 +1,16 @@
 package tp1.pr4.logic;
 
-import java.util.Random;
-
-import tp1.pr4.vampiros;
 import tp1.pr4.exceptions.*;
 import tp1.pr4.logic.gameObjects.GameObjectBoard;
 import tp1.pr4.logic.gameObjects.IAttack;
+import tp1.pr4.vampiros;
 import tp1.pr4.view.GamePrinter;
 import tp1.pr4.view.IPrintable;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class Game implements IPrintable{
 	private Level level;

@@ -1,7 +1,6 @@
 package tp2.prFinal.simulator.factories;
 
 import org.json.JSONObject;
-
 import tp2.prFinal.simulator.control.MassEqualStates;
 import tp2.prFinal.simulator.control.StateComparator;
 

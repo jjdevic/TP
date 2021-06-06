@@ -1,8 +1,8 @@
 package tp2.prFinal.extra.dialog.ex1;
 
 import javax.swing.*;
-
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;

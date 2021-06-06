@@ -183,6 +183,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         JPanel view = new JPanel(new BorderLayout());
         JDialog dialog = new JDialog();
 
+
+
         pAux.add(new JLabel("Force Laws: "));
         pAux.add(cBox);
 
@@ -304,4 +306,5 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
         forceB.setEnabled(state);
         offB.setEnabled(state);
     }
+
 }

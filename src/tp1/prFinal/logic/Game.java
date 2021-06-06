@@ -1,12 +1,12 @@
 package tp1.prFinal.logic;
 
-import java.util.Random;
-
 import tp1.prFinal.exceptions.*;
 import tp1.prFinal.logic.gameObjects.GameObjectBoard;
 import tp1.prFinal.logic.gameObjects.IAttack;
 import tp1.prFinal.view.GamePrinter;
 import tp1.prFinal.view.IPrintable;
+
+import java.util.Random;
 
 public class Game implements IPrintable{
 	private Level level;

@@ -1,7 +1,6 @@
 package tp2.pr2.simulator.control;
 
 import org.json.JSONObject;
-
 import tp2.pr2.simulator.misc.Vector2D;
 
 public class EpsilonEqualStates implements StateComparator {

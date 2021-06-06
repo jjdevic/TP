@@ -1,10 +1,10 @@
 package tp2.pr2.extra.json;
 
+import org.json.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
-import org.json.*;
 
 public class UseExample {
 

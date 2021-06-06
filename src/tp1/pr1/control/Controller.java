@@ -1,9 +1,9 @@
 package tp1.pr1.control;
 
-import java.util.Scanner;
-
 import tp1.pr1.logic.Game;
 import tp1.pr1.view.GamePrinter;
+
+import java.util.Scanner;
 
 public class Controller {
 

@@ -1,36 +1,16 @@
 package tp2.pr1.simulator.launcher;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.json.JSONObject;
-
 import tp2.pr1.simulator.control.Controller;
 import tp2.pr1.simulator.control.StateComparator;
-import tp2.pr1.simulator.factories.BasicBodyBuilder;
-import tp2.pr1.simulator.factories.Builder;
-import tp2.pr1.simulator.factories.BuilderBasedFactory;
-import tp2.pr1.simulator.factories.EpsilonEqualStatesBuilder;
-import tp2.pr1.simulator.factories.Factory;
-import tp2.pr1.simulator.factories.MassEqualStatesBuilder;
-import tp2.pr1.simulator.factories.MassLosingBodyBuilder;
-import tp2.pr1.simulator.factories.MovingTowardsFixedPointBuilder;
-import tp2.pr1.simulator.factories.NewtonUniversalGravitationBuilder;
-import tp2.pr1.simulator.factories.NoForceBuilder;
+import tp2.pr1.simulator.factories.*;
 import tp2.pr1.simulator.model.Body;
 import tp2.pr1.simulator.model.ForceLaws;
 import tp2.pr1.simulator.model.PhysicsSimulator;
+
+import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 

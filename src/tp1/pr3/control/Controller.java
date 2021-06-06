@@ -1,9 +1,10 @@
 package tp1.pr3.control;
 
-import java.util.Scanner;
-
-import tp1.pr3.control.commands.*;
+import tp1.pr3.control.commands.Command;
+import tp1.pr3.control.commands.CommandGenerator;
 import tp1.pr3.logic.Game;
+
+import java.util.Scanner;
 
 public class Controller {
 

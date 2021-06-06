@@ -1,7 +1,6 @@
 package tp2.pr1.simulator.model;
 
 import org.json.JSONObject;
-
 import tp2.pr1.simulator.misc.Vector2D;
 
 public class Body {

@@ -1,10 +1,10 @@
 package tp1.pr2.control;
 
-import java.util.Scanner;
-
-import tp1.pr2.control.commands.*;
+import tp1.pr2.control.commands.Command;
+import tp1.pr2.control.commands.CommandGenerator;
 import tp1.pr2.logic.Game;
-import tp1.pr2.view.GamePrinter;
+
+import java.util.Scanner;
 
 public class Controller {
 

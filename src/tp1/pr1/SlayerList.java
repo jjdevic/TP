@@ -1,6 +1,6 @@
 package tp1.pr1;
 
-import tp1.pr1.logic.*;
+import tp1.pr1.logic.Game;
 
 public class SlayerList {
 	private final static int MAX_VAMP = 50;

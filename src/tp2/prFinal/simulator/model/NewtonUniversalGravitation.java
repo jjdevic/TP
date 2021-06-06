@@ -1,9 +1,9 @@
 package tp2.prFinal.simulator.model;
 
+import tp2.prFinal.simulator.misc.Vector2D;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import tp2.prFinal.simulator.misc.Vector2D;
 
 public class NewtonUniversalGravitation implements ForceLaws{
 	private double _G;

@@ -1,7 +1,6 @@
 package tp2.pr1.simulator.factories;
 
 import org.json.JSONObject;
-
 import tp2.pr1.simulator.model.ForceLaws;
 import tp2.pr1.simulator.model.NewtonUniversalGravitation;
 
@@ -9,7 +8,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
 	public NewtonUniversalGravitationBuilder() {
 		type = "nlug";
-		desc = "Newton’s law of universal gravitation";
+		desc = "Newtonï¿½s law of universal gravitation";
 	}
 
 	@Override

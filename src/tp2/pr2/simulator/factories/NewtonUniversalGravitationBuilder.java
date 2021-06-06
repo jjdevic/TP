@@ -1,7 +1,6 @@
 package tp2.pr2.simulator.factories;
 
 import org.json.JSONObject;
-
 import tp2.pr2.simulator.model.ForceLaws;
 import tp2.pr2.simulator.model.NewtonUniversalGravitation;
 

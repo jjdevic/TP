@@ -1,18 +1,17 @@
 package tp2.pr1.simulator.control;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import tp2.pr1.simulator.exceptions.NotEqualStatesException;
 import tp2.pr1.simulator.factories.Factory;
 import tp2.pr1.simulator.model.Body;
 import tp2.pr1.simulator.model.PhysicsSimulator;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class Controller {
 	private Factory<Body> _factory;

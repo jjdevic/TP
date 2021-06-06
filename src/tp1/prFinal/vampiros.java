@@ -1,9 +1,10 @@
 package tp1.prFinal;
-import java.util.Scanner;
 
 import tp1.prFinal.control.Controller;
 import tp1.prFinal.logic.Game;
 import tp1.prFinal.logic.Level;
+
+import java.util.Scanner;
 
 public class vampiros {
 		public static final String version = "3.0";

@@ -2,7 +2,6 @@ package tp2.pr1.simulator.factories;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import tp2.pr1.simulator.misc.Vector2D;
 import tp2.pr1.simulator.model.Body;
 

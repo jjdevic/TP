@@ -1,8 +1,9 @@
 package tp1.pr1;
 
-import java.util.Random;
+import tp1.pr1.logic.Game;
+import tp1.pr1.logic.Level;
 
-import tp1.pr1.logic.*;
+import java.util.Random;
 
 public class GameObjectBoard {
 	private VampireList vampireList;

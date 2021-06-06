@@ -2,7 +2,6 @@ package tp2.prFinal.simulator.factories;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import tp2.prFinal.simulator.misc.Vector2D;
 import tp2.prFinal.simulator.model.Body;
 import tp2.prFinal.simulator.model.MassLossingBody;

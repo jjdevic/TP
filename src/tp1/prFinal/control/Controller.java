@@ -1,10 +1,11 @@
 package tp1.prFinal.control;
 
-import java.util.Scanner;
-
-import tp1.prFinal.control.commands.*;
+import tp1.prFinal.control.commands.Command;
+import tp1.prFinal.control.commands.CommandGenerator;
 import tp1.prFinal.exceptions.GameException;
 import tp1.prFinal.logic.Game;
+
+import java.util.Scanner;
 
 public class Controller {
 

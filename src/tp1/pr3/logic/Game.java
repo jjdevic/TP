@@ -1,11 +1,11 @@
 package tp1.pr3.logic;
 
-import java.util.Random;
-
 import tp1.pr3.logic.gameObjects.GameObjectBoard;
 import tp1.pr3.logic.gameObjects.IAttack;
 import tp1.pr3.view.GamePrinter;
 import tp1.pr3.view.IPrintable;
+
+import java.util.Random;
 
 public class Game implements IPrintable{
 	private Level level;

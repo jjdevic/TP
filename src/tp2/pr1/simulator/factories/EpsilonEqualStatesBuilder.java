@@ -1,7 +1,6 @@
 package tp2.pr1.simulator.factories;
 
 import org.json.JSONObject;
-
 import tp2.pr1.simulator.control.EpsilonEqualStates;
 import tp2.pr1.simulator.control.StateComparator;
 

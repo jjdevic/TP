@@ -1,10 +1,10 @@
 package tp1.pr4.control.commands;
 
-import java.io.IOException;
-
 import tp1.pr4.exceptions.CommandExecuteException;
 import tp1.pr4.exceptions.CommandParseException;
 import tp1.pr4.logic.Game;
+
+import java.io.IOException;
 
 public class SaveCommand extends Command {
 	private String file;
